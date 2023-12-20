@@ -55,6 +55,11 @@ app.post('/upload', upload.array('files'), (req, res) => {
   res.json('Files uploaded.');
 });
 
+app.get('/download/:filename', (req, res) => {
+  const filepath = path.join(uploadDirectoryPath, req.params.filename);
+  res.status(200).download(filepath);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port: ${PORT} on http://${HOST}:${PORT}`);
 });
