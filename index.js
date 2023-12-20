@@ -16,8 +16,8 @@ const app = express();
 app.use(cors());
 
 const uploadDirectoryPath = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDirectoryPath)) {
-  fs.mkdirSync(uploadDirectoryPath);
+if (!fs.exists(uploadDirectoryPath, (e) => console.log(e ? 'Found' : 'Not Found'))) {
+  fs.mkdir(uploadDirectoryPath, (err) => console.error(err));
 }
 
 const storage = multer.diskStorage({
@@ -57,7 +57,7 @@ app.post('/upload', upload.array('files'), (req, res) => {
 
 app.get('/download/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
-  if (!fs.existsSync(filepath)) {
+  if (!fs.exists(filepath, (e) => console.log(e ? 'Found' : 'Not Found'))) {
     return res.status(400).json('File not exists.');
   }
   res.status(200).download(filepath);
@@ -65,7 +65,7 @@ app.get('/download/:filename', (req, res) => {
 
 app.delete('/delete/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
-  if (!fs.existsSync(filepath)) {
+  if (!fs.exists(filepath, (e) => console.log(e ? 'Found' : 'Not Found'))) {
     return res.status(400).json('File not exists.');
   }
   fs.unlink(filepath, (err) => {
