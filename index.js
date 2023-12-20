@@ -65,6 +65,9 @@ app.get('/download/:filename', (req, res) => {
 
 app.delete('/delete/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
+  if (!fs.existsSync(filepath)) {
+    return res.status(400).json('File not exists.');
+  }
   fs.unlink(filepath, (err) => {
     if (err) {
       return res.status(500).json('Unexprected error.');
