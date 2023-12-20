@@ -60,6 +60,16 @@ app.get('/download/:filename', (req, res) => {
   res.status(200).download(filepath);
 });
 
+app.delete('/delete/:filename', (req, res) => {
+  const filepath = path.join(uploadDirectoryPath, req.params.filename);
+  fs.unlink(filepath, (err) => {
+    if (err) {
+      res.status(500).json('Unexprected error.');
+    }
+    res.status(200).json('File deleted.');
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port: ${PORT} on http://${HOST}:${PORT}`);
 });
