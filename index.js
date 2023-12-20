@@ -20,6 +20,15 @@ if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory);
 }
 
+const storage = multer.diskStorage({
+  destination: uploadDirectory,
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 app.get('/', (req, res) => {
   res.json({
     message: 'Status: 200 OK!',
