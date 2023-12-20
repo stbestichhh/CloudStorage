@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import CheckPath from './utils/checkPath.js';
+import validateFileArray from './validations/fileArray.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,9 +40,7 @@ app.get('/', (req, res) => {
 app.get('/files', (req, res) => {
   fs.readdir(uploadDirectoryPath, (err, files) => {
     if (err) {
-      return res.status(500).json({
-        message: err,
-      });
+      return res.status(500).json(err);
     }
 
     res.status(200).json(files);
@@ -49,7 +48,7 @@ app.get('/files', (req, res) => {
 });
 
 app.post('/upload', upload.array('files'), (req, res) => {
-  if (!req.files || req.files.length === 0 || !Array.isArray(req.files)) {
+  if (!req.files || validateFileArray(req.files)) {
     return res.status(400).json('You have to uplopad a file.');
   }
 
@@ -59,12 +58,14 @@ app.post('/upload', upload.array('files'), (req, res) => {
 app.get('/download/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
   CheckPath(filepath, () => res.status(400).json('File not exists.'));
+
   res.status(200).download(filepath);
 });
 
 app.delete('/delete/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
   CheckPath(filepath, () => res.status(400).json('File not exists.'));
+
   fs.unlink(filepath, (err) => {
     if (err) {
       return res.status(500).json('Unexprected error.');
