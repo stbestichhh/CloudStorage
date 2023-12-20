@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 app.get('/files', (req, res) => {
   fs.readdir(uploadDirectoryPath, (err, files) => {
     if (err) {
-      res.status(500).json({
+      return res.status(500).json({
         message: err,
       });
     }
@@ -49,7 +49,7 @@ app.get('/files', (req, res) => {
 
 app.post('/upload', upload.array('files'), (req, res) => {
   if (!req.files || req.files.length === 0 || !Array.isArray(req.files)) {
-    res.status(400).json('You have to uplopad a file.');
+    return res.status(400).json('You have to uplopad a file.');
   }
 
   res.json('Files uploaded.');
@@ -57,6 +57,9 @@ app.post('/upload', upload.array('files'), (req, res) => {
 
 app.get('/download/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
+  if (!fs.existsSync(filepath)) {
+    return res.status(400).json('File not exists.');
+  }
   res.status(200).download(filepath);
 });
 
@@ -64,7 +67,7 @@ app.delete('/delete/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
   fs.unlink(filepath, (err) => {
     if (err) {
-      res.status(500).json('Unexprected error.');
+      return res.status(500).json('Unexprected error.');
     }
     res.status(200).json('File deleted.');
   });
