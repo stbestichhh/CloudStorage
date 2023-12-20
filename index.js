@@ -47,6 +47,14 @@ app.get('/files', (req, res) => {
   });
 });
 
+app.post('/upload', upload.array('files'), (req, res) => {
+  if (!res.files || req.files.length === 0) {
+    res.status(400).json('You have to uplopad a file.');
+  }
+
+  res.json('Files uploaded.');
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at port: ${PORT} on http://${HOST}:${PORT}`);
 });
