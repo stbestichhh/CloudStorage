@@ -15,13 +15,13 @@ const HOST = 'localhost';
 const app = express();
 app.use(cors());
 
-const uploadDirectory = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDirectory)) {
-  fs.mkdirSync(uploadDirectory);
+const uploadDirectoryPath = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDirectoryPath)) {
+  fs.mkdirSync(uploadDirectoryPath);
 }
 
 const storage = multer.diskStorage({
-  destination: uploadDirectory,
+  destination: uploadDirectoryPath,
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -32,6 +32,18 @@ const upload = multer({ storage: storage });
 app.get('/', (req, res) => {
   res.json({
     message: 'Status: 200 OK!',
+  });
+});
+
+app.get('/files', (req, res) => {
+  fs.readdir(uploadDirectoryPath, (err, files) => {
+    if (err) {
+      res.status(500).json({
+        message: err,
+      });
+    }
+
+    res.status(200).json(files);
   });
 });
 
