@@ -5,6 +5,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import CheckPath from './utils/checkPath.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,7 +17,7 @@ const app = express();
 app.use(cors());
 
 const uploadDirectoryPath = path.join(__dirname, 'uploads');
-if (!fs.exists(uploadDirectoryPath, (e) => console.log(e ? 'Found' : 'Not Found'))) {
+if (!fs.existsSync(uploadDirectoryPath)) {
   fs.mkdir(uploadDirectoryPath, (err) => console.error(err));
 }
 
@@ -57,17 +58,13 @@ app.post('/upload', upload.array('files'), (req, res) => {
 
 app.get('/download/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
-  if (!fs.exists(filepath, (e) => console.log(e ? 'Found' : 'Not Found'))) {
-    return res.status(400).json('File not exists.');
-  }
+  CheckPath(filepath, () => res.status(400).json('File not exists.'));
   res.status(200).download(filepath);
 });
 
 app.delete('/delete/:filename', (req, res) => {
   const filepath = path.join(uploadDirectoryPath, req.params.filename);
-  if (!fs.exists(filepath, (e) => console.log(e ? 'Found' : 'Not Found'))) {
-    return res.status(400).json('File not exists.');
-  }
+  CheckPath(filepath, () => res.status(400).json('File not exists.'));
   fs.unlink(filepath, (err) => {
     if (err) {
       return res.status(500).json('Unexprected error.');
