@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STorage Cloud</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>STorageCloud</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <label for="fileInput" class="custom-file-upload">Выберите файлы</label>
+      <input type="file" id="fileInput" name="files" multiple onchange="updateFileName()" />
+      <span id="selectedFileName">Нет выбранных файлов</span>
+      <button type="button" onclick="uploadFiles()">Загрузить</button>
+    </form>
+
+    <h2>Files:</h2>
+    <ul id="fileList"></ul>
+
+    <script>
+      const updateFileName = () => {
+        const fileInput = document.getElementById('fileInput');
+        const selectedFileName = document.getElementById('selectedFileName');
+
+        if (fileInput.files.length > 0) {
+          selectedFileName.textContent = `Выбранный файл: ${fileInput.files[0].name}`;
+        } else {
+          selectedFileName.textContent = 'Нет выбранных файлов';
+        }
+      };
+
+      const uploadFiles = () => {
+        const form = document.getElementById('uploadForm');
+        const formData = new FormData(form);
+
+        fetch('https://x3qmqgn7-3000.euw.devtunnels.ms/upload', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((message) => {
+            alert(message);
+            loadFileList();
+          })
+          .catch((error) => console.error('Cannot load files:', error));
+      };
+
+      const loadFileList = () => {
+        fetch('https://x3qmqgn7-3000.euw.devtunnels.ms/files')
+          .then((response) => response.json())
+          .then((files) => {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+
+            files.forEach((file) => {
+              const listItem = document.createElement('li');
+              listItem.textContent = file;
+
+              const downloadLink = document.createElement('a');
+              downloadLink.href = `https://x3qmqgn7-3000.euw.devtunnels.ms/download/${file}`;
+              downloadLink.textContent = 'Скачать';
+              downloadLink.classList.add('download-button');
+              downloadLink.setAttribute('download', '');
+
+              const deleteButton = document.createElement('button');
+              deleteButton.textContent = 'Delete';
+              deleteButton.classList.add('delete-button');
+              deleteButton.addEventListener('click', () => deleteFile(file));
+
+              const buttonContainer = document.createElement('div');
+              buttonContainer.classList.add('button-container');
+              buttonContainer.appendChild(downloadLink);
+              buttonContainer.appendChild(deleteButton);
+
+              listItem.appendChild(buttonContainer);
+              fileList.appendChild(listItem);
+            });
+          })
+          .catch((error) => console.error('Cannot get files:', error));
+      };
+
+      const deleteFile = (filename) => {
+        fetch(`https://x3qmqgn7-3000.euw.devtunnels.ms/delete/${filename}`, {
+          method: 'DELETE',
+        })
+          .then((response) => response.text())
+          .then((message) => {
+            alert(message);
+            loadFileList();
+          })
+          .catch((error) => console.error('Cannot delete file:', error));
+      };
+
+      document.addEventListener('DOMContentLoaded', function () {
+        loadFileList();
+      });
+    </script>
+  </body>
+</html>

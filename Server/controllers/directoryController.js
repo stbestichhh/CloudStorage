@@ -8,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const uploadDirectoryPath = path.join(__dirname, '..', '..', 'uploads');
+const veiwsDirectory = path.join(__dirname, '..', 'views');
+const publicDirectory = path.join(__dirname, '..', 'public');
 
 export const CreateDirectory = () => {
   CheckPath(uploadDirectoryPath, () => fs.mkdir(uploadDirectoryPath, (err) => console.log(err)));
@@ -22,4 +24,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-export { uploadDirectoryPath, upload };
+export { uploadDirectoryPath, upload, veiwsDirectory, publicDirectory };

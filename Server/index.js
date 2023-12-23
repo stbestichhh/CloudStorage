@@ -1,6 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import { CreateDirectory, upload } from './controllers/directoryController.js';
+import {
+  CreateDirectory,
+  veiwsDirectory,
+  upload,
+  publicDirectory,
+} from './controllers/directoryController.js';
 import { DeleteFile, DownloadFile, GetAllFiles, UploadFile } from './controllers/fileController.js';
 
 const PORT = 3000;
@@ -8,13 +13,15 @@ const HOST = 'localhost';
 
 const app = express();
 app.use(cors());
+app.use(express.static(publicDirectory));
+
+app.set('view engine', 'ejs');
+app.set('views', veiwsDirectory);
 
 CreateDirectory();
 
 app.get('/', (req, res) => {
-  res.json({
-    message: 'Status: 200 OK!',
-  });
+  res.render('index');
 });
 
 app.get('/files', GetAllFiles);
