@@ -1,8 +1,8 @@
 import fs from 'fs';
 
-const CheckPath = (path, cb) => {
-  if (!fs.existsSync(path)) {
-    cb();
+const CheckPath = async (path, cb) => {
+  if (fs.access(path, (err) => (err ? 'Unexpected error while reading path.' : ''))) {
+    await cb();
   }
 };
 
