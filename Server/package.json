@@ -1,0 +1,34 @@
+{
+  "name": "cloudstorage",
+  "version": "1.0.0",
+  "description": "NodeJS cloud store",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
+    "lint": "npx eslint ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stbestichhh/CloudStorage.git"
+  },
+  "keywords": [
+    "NodeJS"
+  ],
+  "author": "stbestichhh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stbestichhh/CloudStorage/issues"
+  },
+  "homepage": "https://github.com/stbestichhh/CloudStorage#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.0.2"
+  }
+}

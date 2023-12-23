@@ -7,7 +7,7 @@ import multer from 'multer';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const uploadDirectoryPath = path.join(__dirname, '..', 'uploads');
+const uploadDirectoryPath = path.join(__dirname, '..', '..', 'uploads');
 
 export const CreateDirectory = () => {
   CheckPath(uploadDirectoryPath, () => fs.mkdir(uploadDirectoryPath, (err) => console.log(err)));
