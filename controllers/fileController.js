@@ -1,5 +1,5 @@
 import fs from 'fs';
-import uploadDirectoryPath from './directoryController.js';
+import { uploadDirectoryPath } from './directoryController.js';
 import validateFileArray from '../validations/fileArray.js';
 import path from 'path';
 import CheckPath from '../utils/checkPath.js';
