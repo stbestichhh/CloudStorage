@@ -1,0 +1,156 @@
+/* styles.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  padding-top: 20px; /* Отступ сверху */
+  padding-bottom: 20px; /* Отступ снизу */
+  padding-left: 20px; /* Отступ слева */
+  padding-right: 20px; /* Отступ справа */
+}
+
+.header {
+  background-color: #4285f4;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Округлить углы контейнера */
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input[type='file'] {
+  display: none; /* Скрыть нативный input[type="file"] */
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #4285f4;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.custom-file-upload:hover {
+  background-color: #3873c2;
+}
+
+.custom-upload-button {
+  background-color: #4285f4;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-upload-button:hover {
+  background-color: #3873c2;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Отступ между элементами внутри flex-контейнера */
+}
+
+.delete-button {
+  background-color: #e74c3c; /* Красный цвет */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #d52d1f; /* Темно-красный цвет при наведении */
+}
+
+.download-button {
+  background-color: #4caf50; /* Зеленый цвет */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #45a049; /* Темно-зеленый цвет при наведении */
+}
+
+button {
+  background-color: #4285f4;
+  color: #fff;
+  border: none;
+  padding: 12px 20px; /* Увеличиваем отступы */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px; /* Округлить углы кнопок */
+  transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+}
+
+button:hover {
+  background-color: #3873c2; /* Цвет при наведении */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+a {
+  color: #4285f4;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+button.delete {
+  background-color: #e74c3c;
+}
