@@ -9,10 +9,10 @@
   <body>
     <h1>STorageCloud</h1>
     <form id="uploadForm" enctype="multipart/form-data">
-      <label for="fileInput" class="custom-file-upload">Выберите файлы</label>
+      <label for="fileInput" class="custom-file-upload">Choose Files/label>
       <input type="file" id="fileInput" name="files" multiple onchange="updateFileName()" />
-      <span id="selectedFileName">Нет выбранных файлов</span>
-      <button type="button" onclick="uploadFiles()">Загрузить</button>
+      <span id="selectedFileName">...</span>
+      <button type="button" onclick="uploadFiles()">Upload</button>
     </form>
 
     <h2>Files:</h2>
@@ -24,9 +24,9 @@
         const selectedFileName = document.getElementById('selectedFileName');
 
         if (fileInput.files.length > 0) {
-          selectedFileName.textContent = `Выбранный файл: ${fileInput.files[0].name}`;
+          selectedFileName.textContent = `Chose file: ${fileInput.files[0].name}`;
         } else {
-          selectedFileName.textContent = 'Нет выбранных файлов';
+          selectedFileName.textContent = '...';
         }
       };
 
@@ -59,7 +59,7 @@
 
               const downloadLink = document.createElement('a');
               downloadLink.href = `https://x3qmqgn7-3000.euw.devtunnels.ms/download/${file}`;
-              downloadLink.textContent = 'Скачать';
+              downloadLink.textContent = 'Download';
               downloadLink.classList.add('download-button');
               downloadLink.setAttribute('download', '');
 
