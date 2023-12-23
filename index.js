@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import express from 'express';
 import cors from 'cors';
-import multer from 'multer';
-import uploadDirectoryPath, { CreateDirectory } from './controllers/directoryController.js';
+import { CreateDirectory, upload } from './controllers/directoryController.js';
 import { DeleteFile, DownloadFile, GetAllFiles, UploadFile } from './controllers/fileController.js';
 
 const PORT = 3000;
@@ -12,15 +10,6 @@ const app = express();
 app.use(cors());
 
 CreateDirectory();
-
-const storage = multer.diskStorage({
-  destination: uploadDirectoryPath,
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage });
 
 app.get('/', (req, res) => {
   res.json({
