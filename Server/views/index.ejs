@@ -9,9 +9,9 @@
   <body>
     <h1>STorageCloud</h1>
     <form id="uploadForm" enctype="multipart/form-data">
-      <label for="fileInput" class="custom-file-upload">Choose Files/label>
+      <label for="fileInput" class="custom-file-upload">Choose Files</label>
       <input type="file" id="fileInput" name="files" multiple onchange="updateFileName()" />
-      <span id="selectedFileName">...</span>
+      <span id="selectedFileName">There are no files choosen</span>
       <button type="button" onclick="uploadFiles()">Upload</button>
     </form>
 
@@ -26,7 +26,7 @@
         if (fileInput.files.length > 0) {
           selectedFileName.textContent = `Chose file: ${fileInput.files[0].name}`;
         } else {
-          selectedFileName.textContent = '...';
+          selectedFileName.textContent = 'There are no files choosen';
         }
       };
 

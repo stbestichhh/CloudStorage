@@ -13,7 +13,7 @@ STorageCloud - local cloud storage for your files.
 
 ## Screenshots
 
-![App screenshot](./screenshots/2023_12_23_20_41_36_223_4IKx.png)
+![App screenshot](./screenshots/2023_12_23_21_00_36_279_CWAt.png)
 
 ## Installation
 
